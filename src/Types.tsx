@@ -1,11 +1,11 @@
 export type Details = {
- ClientName : string,
- Status : string,
- Description:string,
- Address:string
-}
+  ClientName: string;
+  Status: string;
+  Description: string;
+  Address: string;
+};
 
-export type  InputFieldProps = {
+export type InputFieldProps = {
   label?: string;
   name: string;
   type?: string;
@@ -14,4 +14,13 @@ export type  InputFieldProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   className?: string;
-}
+};
+
+export type FunctionalArea = {
+  FunctionalAreaName: string;
+  FunctionalAreaType: string;
+  Definition: string;
+  StartDate: string;
+  EndDate: string;
+  AlignedClients: string;
+};

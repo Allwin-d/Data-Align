@@ -1,15 +1,4 @@
-import React from "react";
-
-type InputFieldProps =  {
-  label?: string;
-  name: string;
-  type?: string;
-  value: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  className?: string;
-}
+import type { InputFieldProps } from "../Types";
 
 function InputField(props: InputFieldProps) {
   const {
@@ -25,7 +14,11 @@ function InputField(props: InputFieldProps) {
 
   return (
     <div className="flex flex-col gap-1">
-      {label && <label htmlFor={name} className="text-sm font-medium">{label}</label>}
+      {label && (
+        <label htmlFor={name} className="text-sm font-medium">
+          {label}
+        </label>
+      )}
       <input
         id={name}
         name={name}

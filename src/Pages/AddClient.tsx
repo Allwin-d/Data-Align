@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import InputField from "../components/InputField";
 import ClientTable from "./ClientTable"; // ✅ import reusable component
-
-type Details = {
-  ClientName: string;
-  Status: string;
-  Description: string;
-  Address: string;
-};
+import type { Details } from "../Types";
 
 const AddClient = () => {
   const [details, setDetails] = useState<Details>({
@@ -19,7 +13,6 @@ const AddClient = () => {
 
   const [clients, setClients] = useState<Details[]>([]);
 
-  // 🔁 load existing clients from localStorage
   useEffect(() => {
     const storedClients = localStorage.getItem("clients");
     if (storedClients) {
@@ -43,7 +36,7 @@ const AddClient = () => {
     setClients(updatedClients);
     localStorage.setItem("clients", JSON.stringify(updatedClients));
 
-    // Reset form
+    
     setDetails({
       ClientName: "",
       Status: "",
@@ -86,8 +79,6 @@ const AddClient = () => {
           Add Client
         </button>
       </form>
-
-      {/* ✅ Reusable Table Component */}
       <ClientTable clients={clients} />
     </div>
   );

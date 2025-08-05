@@ -1,12 +1,7 @@
-type Client = {
-  ClientName: string;
-  Status: string;
-  Description: string;
-  Address: string;
-};
+import type { Details } from "../Types";
 
 type Props = {
-  clients: Client[];
+  clients: Details[];
 };
 
 const ClientTable = ({ clients }: Props) => {
