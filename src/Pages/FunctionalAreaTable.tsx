@@ -1,12 +1,4 @@
-type FunctionalArea = {
-  FunctionalAreaName: string;
-  FunctionalAreaType: string;
-  Definition: string;
-  StartDate: string;
-  EndDate: string;
-  AlignedClients: string;
-};
-
+import type { FunctionalArea } from "../Types";
 type Props = {
   functionalAreas: FunctionalArea[];
 };

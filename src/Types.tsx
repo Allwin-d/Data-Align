@@ -5,7 +5,7 @@ export type Details = {
   Address: string;
 };
 
-export type InputFieldProps = {
+export type InputFieldProps = { //this is the type for the input field button 
   label?: string;
   name: string;
   type?: string;
@@ -23,4 +23,21 @@ export type FunctionalArea = {
   StartDate: string;
   EndDate: string;
   AlignedClients: string;
+};
+
+export type Role = {
+  RoleName: string;
+  RoleType: string;
+  Definition: string;
+  StartDate: string;
+  EndDate: string;
+};
+
+export type Permission = {
+  PermissionName: string;
+  Definition: string;
+  Status: string;
+  Client: string;
+  PermissionGroup: string[];
+  Roles: string[];
 };

@@ -13,9 +13,9 @@ function InputField(props: InputFieldProps) {
   } = props;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-3">
       {label && (
-        <label htmlFor={name} className="text-sm font-medium">
+        <label htmlFor="" className="text-sm font-medium">
           {label}
         </label>
       )}
