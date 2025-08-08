@@ -32,7 +32,7 @@ export type Role = {
   Definition: string;
   StartDate: string;
   EndDate: string;
-  Status: string; 
+  Status: string;
 };
 
 export type Permission = {
@@ -42,4 +42,10 @@ export type Permission = {
   Client: string;
   PermissionGroup: string[];
   Roles: string[];
+};
+
+export type PermissionGroup = {
+  GroupName: string;
+  Definition: string;
+  Status: string;
 };
