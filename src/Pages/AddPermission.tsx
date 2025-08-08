@@ -21,7 +21,7 @@ const AddPermission = () => {
     Roles: [],
   });
 
-  // Load data from localStorage
+  
   useEffect(() => {
     const storedClients = localStorage.getItem("clients");
     const storedRoles = localStorage.getItem("roles");
@@ -36,12 +36,12 @@ const AddPermission = () => {
     }
   }, []);
 
-  // Active permission groups (right now from existing permissions)
+  
   const activePermissionGroups = existingPermissions.filter(
     (permission) => permission.Status === "Active"
   );
 
-  // Active roles
+  
   const activeRoles = roles.filter((role) => role.Status === "Active");
 
   const handleChange = (
@@ -215,7 +215,7 @@ const AddPermission = () => {
         </button>
       </form>
 
-      {/* Permission Table */}
+    
       <PermissionTable permissions={permissions} />
     </div>
   );
