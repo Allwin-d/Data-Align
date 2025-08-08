@@ -1,11 +1,4 @@
-type Role = {
-  RoleName: string;
-  RoleType: string;
-  Definition: string;
-  Status: string;
-  StartDate: string;
-  EndDate: string;
-};
+import type { Role } from "../Types";
 
 type Props = {
   roles: Role[];
