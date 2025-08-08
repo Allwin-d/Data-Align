@@ -87,7 +87,7 @@ const AddPermission = () => {
     setExistingPermissions(updatedPermissions);
     localStorage.setItem("permissions", JSON.stringify(updatedPermissions));
 
-    // Reset form
+    
     setFormData({
       PermissionName: "",
       Definition: "",
