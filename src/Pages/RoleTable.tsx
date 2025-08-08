@@ -2,6 +2,7 @@ type Role = {
   RoleName: string;
   RoleType: string;
   Definition: string;
+  Status: string;
   StartDate: string;
   EndDate: string;
 };
@@ -15,6 +16,7 @@ const RoleTable = ({ roles }: Props) => {
     "Role Name ",
     "Role Type",
     "Definition",
+    "Status",
     "Start Date",
     "End Date",
   ];
@@ -41,6 +43,7 @@ const RoleTable = ({ roles }: Props) => {
               <td className="border px-4 py-2">{item.RoleName}</td>
               <td className="border px-4 py-2">{item.RoleType}</td>
               <td className="border px-4 py-2">{item.Definition}</td>
+              <td className="border px-4 py-2">{item.Status}</td>
               <td className="border px-4 py-2">{item.StartDate}</td>
               <td className="border px-4 py-2">{item.EndDate}</td>
             </tr>

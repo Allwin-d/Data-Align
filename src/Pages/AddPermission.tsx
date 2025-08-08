@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import InputField from "../components/InputField";
 import PermissionTable from "./PermissionTable";
-import type { Permission } from "../Types";
-import type { Role } from "../Types";
-import type { Details } from "../Types";
+import type { Permission, Role, Details } from "../Types";
 
 const AddPermission = () => {
   const [clients, setClients] = useState<Details[]>([]);
@@ -22,20 +20,13 @@ const AddPermission = () => {
     Roles: [],
   });
 
-  // Load all data from localStorage
   useEffect(() => {
     const storedClients = localStorage.getItem("clients");
     const storedRoles = localStorage.getItem("roles");
     const storedPermissions = localStorage.getItem("permissions");
 
-    if (storedClients) {
-      setClients(JSON.parse(storedClients));
-    }
-
-    if (storedRoles) {
-      setRoles(JSON.parse(storedRoles));
-    }
-
+    if (storedClients) setClients(JSON.parse(storedClients));
+    if (storedRoles) setRoles(JSON.parse(storedRoles));
     if (storedPermissions) {
       const permissionData = JSON.parse(storedPermissions);
       setPermissions(permissionData);
@@ -43,13 +34,13 @@ const AddPermission = () => {
     }
   }, []);
 
-  // Filter active permission groups (existing permissions with Status = Active)
   const activePermissionGroups = existingPermissions.filter(
     (permission) => permission.Status === "Active"
   );
 
-  // Filter active roles (roles with Status = Active - assuming roles have status)
-  const activeRoles = roles; // Note: Role module doesn't have Status field per documentation
+  const activeRoles = roles.filter((role) => role.Status === "Active");
+
+  const allClients = clients;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -72,12 +63,33 @@ const AddPermission = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // --- VALIDATION ---
+    if (!formData.PermissionName.trim()) {
+      alert("Permission Name is required");
+      return;
+    }
+    if (!formData.Status) {
+      alert("Please select a Status");
+      return;
+    }
+    if (!formData.Client) {
+      alert("Please select a Client");
+      return;
+    }
+    if (formData.PermissionGroup.length === 0) {
+      alert("Please select at least one Permission Group");
+      return;
+    }
+    if (formData.Roles.length === 0) {
+      alert("Please select at least one Role");
+      return;
+    }
+
     const updatedPermissions = [...permissions, formData];
     setPermissions(updatedPermissions);
     setExistingPermissions(updatedPermissions);
     localStorage.setItem("permissions", JSON.stringify(updatedPermissions));
 
-    // Reset form
     setFormData({
       PermissionName: "",
       Definition: "",
@@ -86,6 +98,8 @@ const AddPermission = () => {
       PermissionGroup: [],
       Roles: [],
     });
+
+    alert("Permission added successfully!");
   };
 
   return (
@@ -109,16 +123,17 @@ const AddPermission = () => {
         />
 
         <div className="flex flex-col w-60 space-y-2">
-          <label className="text-sm font-medium"> Status </label>
+          <label className="text-sm font-medium">Status</label>
           <select
             name="Status"
             value={formData.Status}
             onChange={handleChange}
             className="px-3 py-2 outline-none rounded-md focus:ring-2 ring-blue-500 border"
+            required
           >
             <option value="">-- Select Status --</option>
             <option value="Active">Active</option>
-            <option value="InActive">InActive</option>
+            <option value="Inactive">Inactive</option>
           </select>
         </div>
 
@@ -129,9 +144,10 @@ const AddPermission = () => {
             value={formData.Client}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 ring-blue-500"
+            required
           >
-            <option value="">Select Client</option>
-            {clients.map((client, index) => (
+            <option value="">-- Select Client --</option>
+            {allClients.map((client, index) => (
               <option key={index} value={client.ClientName}>
                 {client.ClientName}
               </option>
@@ -189,20 +205,19 @@ const AddPermission = () => {
               </div>
             ))}
             {activeRoles.length === 0 && (
-              <p className="text-gray-500 text-sm">No roles available</p>
+              <p className="text-gray-500 text-sm">No active roles available</p>
             )}
           </div>
         </div>
 
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           Add Permission
         </button>
       </form>
 
-      {/* Permission Table */}
       <PermissionTable permissions={permissions} />
     </div>
   );

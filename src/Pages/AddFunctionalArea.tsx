@@ -7,6 +7,7 @@ import type { FunctionalArea } from "../Types";
 const AddFunctionalArea = () => {
   const [clients, setClients] = useState<Details[]>([]);
   const [functionalAreas, setFunctionalAreas] = useState<FunctionalArea[]>([]);
+  const [error, setError] = useState<string>("");
 
   const [formData, setFormData] = useState<FunctionalArea>({
     FunctionalAreaName: "",
@@ -17,34 +18,46 @@ const AddFunctionalArea = () => {
     AlignedClients: "",
   });
 
-  // Load clients and functional areas from localStorage
   useEffect(() => {
     const storedClients = localStorage.getItem("clients");
     const storedFunctionalAreas = localStorage.getItem("functionalAreas");
 
-    if (storedClients) {
-      setClients(JSON.parse(storedClients));
-    }
-
-    if (storedFunctionalAreas) {
+    if (storedClients) setClients(JSON.parse(storedClients));
+    if (storedFunctionalAreas)
       setFunctionalAreas(JSON.parse(storedFunctionalAreas));
-    }
   }, []);
 
-  // Filter only active clients
-  const activeClients = clients.filter((client) => {
-    return client.Status === "Active";
-  });
+  const activeClients = clients.filter((client) => client.Status === "Active");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setError(""); // clear error on change
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // ✅ Required fields check
+    if (
+      !formData.FunctionalAreaName ||
+      !formData.FunctionalAreaType ||
+      !formData.Definition ||
+      !formData.StartDate ||
+      !formData.EndDate ||
+      !formData.AlignedClients
+    ) {
+      setError("⚠ All fields are required.");
+      return;
+    }
+
+    // ✅ Date validation
+    if (new Date(formData.StartDate) > new Date(formData.EndDate)) {
+      setError("⚠ Start Date cannot be later than End Date.");
+      return;
+    }
 
     const updatedFunctionalAreas = [...functionalAreas, formData];
     setFunctionalAreas(updatedFunctionalAreas);
@@ -62,20 +75,24 @@ const AddFunctionalArea = () => {
       EndDate: "",
       AlignedClients: "",
     });
+    setError("");
   };
 
   return (
     <div className="p-6 space-y-8">
       <h1 className="text-2xl font-bold text-center">Add Functional Area</h1>
 
+      {/* ✅ Error message */}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <InputField
-          label="Functional Area Name "
+          label="Functional Area Name"
           name="FunctionalAreaName"
           onChange={handleChange}
           value={formData.FunctionalAreaName}
           placeholder="Area Name"
-        ></InputField>
+        />
 
         <InputField
           label="Functional Area Type"
@@ -83,7 +100,7 @@ const AddFunctionalArea = () => {
           onChange={handleChange}
           value={formData.FunctionalAreaType}
           placeholder="Area Type"
-        ></InputField>
+        />
 
         <InputField
           label="Definition"
@@ -91,7 +108,7 @@ const AddFunctionalArea = () => {
           onChange={handleChange}
           value={formData.Definition}
           placeholder="Definition"
-        ></InputField>
+        />
 
         <div className="flex gap-4">
           <div className="flex-1">
@@ -144,7 +161,6 @@ const AddFunctionalArea = () => {
         </button>
       </form>
 
-      {/* Functional Area Table */}
       <FunctionalAreaTable functionalAreas={functionalAreas} />
     </div>
   );

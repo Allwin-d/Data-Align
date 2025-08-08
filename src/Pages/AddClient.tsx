@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import InputField from "../components/InputField";
-import ClientTable from "./ClientTable"; // ✅ import reusable component
+import ClientTable from "./ClientTable";
 import type { Details } from "../Types";
 
 const AddClient = () => {
-  //intially the details are just an empty string with no values inside
   const [details, setDetails] = useState<Details>({
-    // this Details is the type for the object
     ClientName: "",
     Status: "",
     Description: "",
     Address: "",
   });
 
-  const [clients, setClients] = useState<Details[]>([]); //here we are defining an arrray , this array consist of an array of objects
+  const [clients, setClients] = useState<Details[]>([]);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const storedClients = localStorage.getItem("clients");
@@ -28,16 +27,29 @@ const AddClient = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setDetails({ ...details, [name]: value }); //while changing some values we want some values to be unchanged right and v want that values so we use this spread operator
+    setDetails({ ...details, [name]: value });
+    setError(""); // clear error when typing
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // ✅ Validation: all fields must be filled
+    if (
+      !details.ClientName ||
+      !details.Status ||
+      !details.Description ||
+      !details.Address
+    ) {
+      setError("⚠ All fields are required.");
+      return;
+    }
+
     const updatedClients = [...clients, details];
     setClients(updatedClients);
     localStorage.setItem("clients", JSON.stringify(updatedClients));
 
+    // Reset form
     setDetails({
       ClientName: "",
       Status: "",
@@ -49,8 +61,12 @@ const AddClient = () => {
   return (
     <div className="p-6 space-y-8">
       <div className="text-center">
-        <h1 className="text-2xl font-bold ">Add Client </h1>
+        <h1 className="text-2xl font-bold">Add Client</h1>
       </div>
+
+      {/* ✅ Show error message */}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col space-y-4 w-3/4">
           <InputField
@@ -81,7 +97,7 @@ const AddClient = () => {
             value={details.Description}
             onChange={handleChange}
             placeholder="Description"
-          ></InputField>
+          />
 
           <div className="flex flex-col space-x-4">
             <label className="text-sm font-medium">Address</label>
@@ -102,6 +118,7 @@ const AddClient = () => {
           Add Client
         </button>
       </form>
+
       <ClientTable clients={clients} />
     </div>
   );

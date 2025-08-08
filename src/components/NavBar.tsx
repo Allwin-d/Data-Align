@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
- 
-
   return (
     <div className="bg-blue-700  px-4 py-4 rounded-b-md">
       <div className="flex justify justify-around">

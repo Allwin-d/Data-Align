@@ -5,7 +5,8 @@ export type Details = {
   Address: string;
 };
 
-export type InputFieldProps = { //this is the type for the input field reusable button type  
+export type InputFieldProps = {
+  //this is the type for the input field reusable button type
   label?: string;
   name: string;
   type?: string;
@@ -31,6 +32,7 @@ export type Role = {
   Definition: string;
   StartDate: string;
   EndDate: string;
+  Status: string; 
 };
 
 export type Permission = {
