@@ -32,7 +32,7 @@ const AddRole = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation: Required fields
+    
     if (!formData.RoleName.trim()) {
       alert("Role Name is required");
       return;
@@ -46,7 +46,7 @@ const AddRole = () => {
       return;
     }
 
-    // Validation: Date range
+  
     if (new Date(formData.EndDate) < new Date(formData.StartDate)) {
       alert("End Date cannot be earlier than Start Date");
       return;
@@ -56,7 +56,7 @@ const AddRole = () => {
     setRoles(updatedRoles);
     localStorage.setItem("roles", JSON.stringify(updatedRoles));
 
-    // Reset form
+    
     setFormData({
       RoleName: "",
       RoleType: "",

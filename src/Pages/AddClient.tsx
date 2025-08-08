@@ -28,13 +28,13 @@ const AddClient = () => {
   ) => {
     const { name, value } = e.target;
     setDetails({ ...details, [name]: value });
-    setError(""); // clear error when typing
+    setError(""); 
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Validation: all fields must be filled
+
     if (
       !details.ClientName ||
       !details.Status ||
@@ -49,7 +49,7 @@ const AddClient = () => {
     setClients(updatedClients);
     localStorage.setItem("clients", JSON.stringify(updatedClients));
 
-    // Reset form
+    
     setDetails({
       ClientName: "",
       Status: "",
@@ -64,7 +64,7 @@ const AddClient = () => {
         <h1 className="text-2xl font-bold">Add Client</h1>
       </div>
 
-      {/* ✅ Show error message */}
+      
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">

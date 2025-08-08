@@ -34,13 +34,13 @@ const AddFunctionalArea = () => {
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setError(""); // clear error on change
+    setError(""); 
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Required fields check
+
     if (
       !formData.FunctionalAreaName ||
       !formData.FunctionalAreaType ||
@@ -53,7 +53,7 @@ const AddFunctionalArea = () => {
       return;
     }
 
-    // ✅ Date validation
+    
     if (new Date(formData.StartDate) > new Date(formData.EndDate)) {
       setError("⚠ Start Date cannot be later than End Date.");
       return;
@@ -66,7 +66,7 @@ const AddFunctionalArea = () => {
       JSON.stringify(updatedFunctionalAreas)
     );
 
-    // Reset form
+  
     setFormData({
       FunctionalAreaName: "",
       FunctionalAreaType: "",
@@ -82,7 +82,7 @@ const AddFunctionalArea = () => {
     <div className="p-6 space-y-8">
       <h1 className="text-2xl font-bold text-center">Add Functional Area</h1>
 
-      {/* ✅ Error message */}
+      
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">

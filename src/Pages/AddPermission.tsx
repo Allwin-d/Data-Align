@@ -63,7 +63,7 @@ const AddPermission = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // --- VALIDATION ---
+  
     if (!formData.PermissionName.trim()) {
       alert("Permission Name is required");
       return;
