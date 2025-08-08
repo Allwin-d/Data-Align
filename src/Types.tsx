@@ -6,7 +6,6 @@ export type Details = {
 };
 
 export type InputFieldProps = {
-  //this is the type for the input field reusable button type
   label?: string;
   name: string;
   type?: string;

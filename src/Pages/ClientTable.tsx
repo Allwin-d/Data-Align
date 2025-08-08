@@ -16,7 +16,7 @@ const ClientTable = ({ clients }: Props) => {
       <div className="text-start text-2xl font-bold mb-5">
         <h1>Client Table :</h1>
       </div>
-      <table className="table-auto w-full border border-collapse border-gray-400">
+      <table className="table-auto w-full border border-collapse border-gray-400 ">
         <thead>
           <tr className="bg-gray-200">
             {title.map((item, key) => (
