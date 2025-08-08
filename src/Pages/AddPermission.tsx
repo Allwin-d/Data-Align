@@ -1,33 +1,12 @@
 import { useState, useEffect } from "react";
 import InputField from "../components/InputField";
 import PermissionTable from "./PermissionTable";
-
-type Client = {
-  ClientName: string;
-  Status: string;
-  Description: string;
-  Address: string;
-};
-
-type Role = {
-  RoleName: string;
-  RoleType: string;
-  Definition: string;
-  StartDate: string;
-  EndDate: string;
-};
-
-type Permission = {
-  PermissionName: string;
-  Definition: string;
-  Status: string;
-  Client: string;
-  PermissionGroup: string[];
-  Roles: string[];
-};
+import type { Permission } from "../Types";
+import type { Role } from "../Types";
+import type { Details } from "../Types";
 
 const AddPermission = () => {
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<Details[]>([]);
   const [roles, setRoles] = useState<Role[]>([]);
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const [existingPermissions, setExistingPermissions] = useState<Permission[]>(
@@ -129,18 +108,19 @@ const AddPermission = () => {
           onChange={handleChange}
         />
 
-        <select>
-          <option value="">--SelectStatus--</option>
-          <option value="">Active</option>
-          <option value="">InActive</option>
-        </select>
-
-        <InputField
-          label="Status"
-          name="Status"
-          value={formData.Status}
-          onChange={handleChange}
-        />
+        <div className="flex flex-col w-60 space-y-2">
+          <label className="text-sm font-medium"> Status </label>
+          <select
+            name="Status"
+            value={formData.Status}
+            onChange={handleChange}
+            className="px-3 py-2 outline-none rounded-md focus:ring-2 ring-blue-500 border"
+          >
+            <option value="">-- Select Status --</option>
+            <option value="Active">Active</option>
+            <option value="InActive">InActive</option>
+          </select>
+        </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Client</label>
