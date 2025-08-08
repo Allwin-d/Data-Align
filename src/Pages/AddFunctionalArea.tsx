@@ -32,7 +32,9 @@ const AddFunctionalArea = () => {
   }, []);
 
   // Filter only active clients
-  const activeClients = clients.filter((client) => client.Status === "Active");
+  const activeClients = clients.filter((client) => {
+    return client.Status === "Active";
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -68,26 +70,28 @@ const AddFunctionalArea = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <InputField
-          label="Functional Area Name"
+          label="Functional Area Name "
           name="FunctionalAreaName"
-          value={formData.FunctionalAreaName}
           onChange={handleChange}
-          required
-        />
+          value={formData.FunctionalAreaName}
+          placeholder="Area Name"
+        ></InputField>
 
         <InputField
           label="Functional Area Type"
           name="FunctionalAreaType"
-          value={formData.FunctionalAreaType}
           onChange={handleChange}
-        />
+          value={formData.FunctionalAreaType}
+          placeholder="Area Type"
+        ></InputField>
 
         <InputField
           label="Definition"
           name="Definition"
-          value={formData.Definition}
           onChange={handleChange}
-        />
+          value={formData.Definition}
+          placeholder="Definition"
+        ></InputField>
 
         <div className="flex gap-4">
           <div className="flex-1">

@@ -6,7 +6,7 @@ type Props = {
 
 const ClientTable = ({ clients }: Props) => {
   if (clients.length === 0) <p className="mt-6">No clients added yet.</p>;
-
+  const title = ["Client Name", "Status", "Description", "Address"];
   return (
     <div className="pt-8">
       <div className="text-start text-2xl font-bold mb-5">
@@ -15,10 +15,13 @@ const ClientTable = ({ clients }: Props) => {
       <table className="table-auto w-full border border-collapse border-gray-400">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border px-4 py-2">Client Name</th>
-            <th className="border px-4 py-2">Status</th>
-            <th className="border px-4 py-2">Description</th>
-            <th className="border px-4 py-2">Address</th>
+            {title.map((item, key) => {
+              return (
+                <th key={key} className="border px-4 py-2">
+                  {item}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>

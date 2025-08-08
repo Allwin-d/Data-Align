@@ -6,18 +6,30 @@ type Props = {
 const FunctionalAreaTable = ({ functionalAreas }: Props) => {
   if (functionalAreas.length === 0)
     return <p className="mt-6">No functional areas added yet.</p>;
+  const title = [
+    "Functional Area Name",
+    "Functional Area Type",
+    "Definition",
+    "Start Date",
+    "End Date",
+    "Aligned Client(s)",
+  ];
 
   return (
     <div className="pt-8">
+      <div className="text-start">
+        <h1 className="font-bold text-xl mb-4 ">Functional Area Table : </h1>
+      </div>
       <table className="table-auto w-full border border-collapse border-gray-400">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border px-4 py-2">Functional Area Name</th>
-            <th className="border px-4 py-2">Functional Area Type</th>
-            <th className="border px-4 py-2">Definition</th>
-            <th className="border px-4 py-2">Start Date</th>
-            <th className="border px-4 py-2">End Date</th>
-            <th className="border px-4 py-2">Aligned Client(s)</th>
+            {title.map((item, key) => {
+              return (
+                <th key={key} className="border px-4 py-2">
+                  {item}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
