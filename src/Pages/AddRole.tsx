@@ -41,6 +41,7 @@ const AddRole = () => {
       alert("Start Date is required");
       return;
     }
+    
     if (!formData.EndDate) {
       alert("End Date is required");
       return;
